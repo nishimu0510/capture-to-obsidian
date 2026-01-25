@@ -23,7 +23,7 @@ PYTHON_PATH="$HOME/.pyenv/versions/3.12.1/bin/python3"
 # 設定
 VAULT_PATH="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Med"
 ATTACHMENTS_DIR="$VAULT_PATH/attachments"
-OCR_DIR="$VAULT_PATH/OCR_input"
+# OCR_DIR="$VAULT_PATH/OCR_input"  # 不要になったため無効化
 NOTE_PATH="$VAULT_PATH/Screenshots.md"
 OCR_NOTE_PATH="$VAULT_PATH/OCR_results.md"
 SHORTCUT_NAME='text from image and remove\n and add <sup> 1'
@@ -42,7 +42,6 @@ IMAGE_PATH="$ATTACHMENTS_DIR/$IMAGE_NAME"
 
 # フォルダが存在しない場合は作成
 mkdir -p "$ATTACHMENTS_DIR"
-mkdir -p "$OCR_DIR"
 
 # Pythonで座標を記録しながらキャプチャ
 "$PYTHON_PATH" "$SCRIPT_DIR/capture_with_region.py" "$IMAGE_PATH" "$REGION_FILE"
@@ -52,9 +51,6 @@ if [[ ! -f "$IMAGE_PATH" ]] || [[ ! -s "$IMAGE_PATH" ]]; then
     echo "キャプチャがキャンセルされました"
     exit 1
 fi
-
-# OCR用フォルダにもコピー
-cp "$IMAGE_PATH" "$OCR_DIR/$IMAGE_NAME"
 
 # 画像をクリップボードにコピー
 osascript -e "set the clipboard to (read (POSIX file \"$IMAGE_PATH\") as «class PNGf»)"
