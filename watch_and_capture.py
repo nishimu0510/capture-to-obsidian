@@ -21,7 +21,6 @@ except ImportError:
 # 設定
 VAULT_PATH = os.path.expanduser("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Med")
 ATTACHMENTS_DIR = os.path.join(VAULT_PATH, "attachments")
-OCR_DIR = os.path.join(VAULT_PATH, "OCR_input")
 NOTE_PATH = os.path.join(VAULT_PATH, "Screenshots.md")
 OCR_NOTE_PATH = os.path.join(VAULT_PATH, "OCR_results.md")
 SHORTCUT_NAME = "text from image and remove\\n and add <sup> 1"
@@ -137,7 +136,6 @@ def main():
 
     # ディレクトリを作成
     os.makedirs(ATTACHMENTS_DIR, exist_ok=True)
-    os.makedirs(OCR_DIR, exist_ok=True)
 
     # PIDを保存
     with open(PID_FILE, 'w') as f:
@@ -182,7 +180,6 @@ def main():
 
                 # 画像を保存
                 subprocess.run(['cp', curr_image, final_path])
-                subprocess.run(['cp', curr_image, os.path.join(OCR_DIR, image_name)])
 
                 print(f"[{capture_count}] 変化検出 ({diff:.1f}%): {image_name}", flush=True)
 
